@@ -1,12 +1,12 @@
 services:
     smb:
-        image: beenhamo/samba-server:latest
+        build: .
         container_name: samba-server
         network_mode: host
         volumes:
             - ./data:/srv/samba/share
         environment:
-            - SAMBA_USER=smbuser
+            - SAMBA_USER=devuser
             - SAMBA_PASSWORD=password
             - SAMBA_SHARE=share
         restart: unless-stopped
