@@ -1,0 +1,8 @@
+services:
+    smb:
+        image: beenhamo/samba-server:latest
+        container_name: samba-server
+        network_mode: host
+        volumes:
+            - ./data:/srv/samba/share
+        restart: unless-stopped
