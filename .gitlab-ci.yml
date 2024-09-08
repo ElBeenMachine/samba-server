@@ -2,35 +2,27 @@ stages:
     - build
     - release
 
-# Cache Docker layers for faster builds
-cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-        - .docker/
+variables:
+    IMAGE_NAME: beenhamo/samba-server
+
+before_script:
+    - docker login -u "$DOCKER_HUB_USERNAME" -p "$DOCKER_HUB_PASSWORD"
 
 # Build the Docker image
 build:
     stage: build
-    image: docker:latest
-    services:
-        - docker:dind
     script:
-        - docker login -u "$DOCKER_HUB_USERNAME" -p "$DOCKER_HUB_PASSWORD"
-        - docker build -t "beenhamo/samba-server:latest" .
-        - docker save -o .docker/image.tar "beenhamo/samba-server:latest"
-    only:
-        - branches
+        # Get the version from a file or an environment variable
+        - VERSION=$(cat VERSION)
+        - docker build -t $IMAGE_NAME:$VERSION .
+        - docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
 
 # Publish the Docker image on release
 release:
     stage: release
-    image: docker:latest
-    services:
-        - docker:dind
     script:
-        - docker load -i .docker/image.tar
-        - docker tag "beenhamo/samba-server:latest" "beenhamo/samba-server:$CI_COMMIT_TAG"
-        - docker push "beenhamo/samba-server:latest"
-        - docker push "beenhamo/samba-server:$CI_COMMIT_TAG"
+        - VERSION=$(cat VERSION) # or replace with your version fetching method
+        - docker push $IMAGE_NAME:$VERSION
+        - docker push $IMAGE_NAME:latest
     only:
-        - tags
+        - production
