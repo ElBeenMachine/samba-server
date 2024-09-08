@@ -12,7 +12,7 @@ RUN mkdir -p /srv/samba/share && \
     chown nobody:nogroup /srv/samba/share && \
     chmod -R 0777 /srv/samba/share
 
-COPY start.sh /usr/local/bin/start-samba.sh
+COPY ./config/start.sh /usr/local/bin/start-samba.sh
 RUN chmod +x /usr/local/bin/start-samba.sh
 
 CMD ["/usr/local/bin/start-samba.sh"]
