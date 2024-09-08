@@ -12,16 +12,14 @@ before_script:
 build:
     stage: build
     script:
-        # Get the version from a file or an environment variable
         - VERSION=$(cat VERSION)
         - docker build -t $IMAGE_NAME:$VERSION .
         - docker tag $IMAGE_NAME:$VERSION $IMAGE_NAME:latest
 
-# Publish the Docker image on release
 release:
     stage: release
     script:
-        - VERSION=$(cat VERSION) # or replace with your version fetching method
+        - VERSION=$(cat VERSION)
         - docker push $IMAGE_NAME:$VERSION
         - docker push $IMAGE_NAME:latest
     only:
