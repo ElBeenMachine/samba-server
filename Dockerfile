@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get install -y samba && \
     rm -rf /var/lib/apt/lists/*
 
-COPY smb.conf /etc/samba/smb.conf
+COPY ./config/smb.conf /etc/samba/smb.conf
 
 EXPOSE 137/udp 138/udp 139 445
 
