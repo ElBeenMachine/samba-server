@@ -14,7 +14,6 @@ EXPOSE 137/udp 138/udp 139 445
 
 # Create the directory for the Samba share, set ownership, and permissions
 RUN mkdir -p /srv/samba/share && \
-    chown nobody:nogroup /srv/samba/share && \
     chmod -R 0777 /srv/samba/share
 
 # Copy the startup script to the appropriate directory and make it executable

@@ -36,6 +36,9 @@ else
     fi
 fi
 
+# Make the user the owner of the share
+chown $SAMBA_USER /srv/samba/share
+
 # Log the smb.conf file
 printf "\n-------------- smb.conf --------------\n\n"
 cat /etc/samba/smb.conf
