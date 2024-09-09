@@ -8,7 +8,6 @@ variables:
 image: carlallen/docker:buildx
 before_script:
     - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin
-    - docker create context builder
     - docker buildx create builder --use
 
 # Build the Docker image for multiple architectures
