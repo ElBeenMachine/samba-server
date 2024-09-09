@@ -15,6 +15,7 @@ build:
     stage: build
     script:
         - VERSION=$(cat VERSION)
+        - echo "Building Docker image for $IMAGE_NAME:$VERSION"
         - docker buildx build --push \
           --platform linux/amd64,linux/arm64 \
           -t $IMAGE_NAME:latest -t $IMAGE_NAME:$VERSION .
