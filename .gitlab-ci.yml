@@ -15,6 +15,6 @@ build:
     stage: build
     script:
         - VERSION=$(cat VERSION)
-        - docker buildx build --platform linux/amd64,linux/arm64 -t $IMAGE_NAME:latest $IMAGE_NAME:$VERSION . --push
+        - docker buildx build --platform linux/amd64,linux/arm64 -t $IMAGE_NAME:latest $IMAGE_NAME:$VERSION --push .
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
