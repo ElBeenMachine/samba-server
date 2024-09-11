@@ -1,3 +1,5 @@
+---
+
 services:
     smb:
         image: beenhamo/samba-server:latest
